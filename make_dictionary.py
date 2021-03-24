@@ -1,7 +1,7 @@
 import os
 from collections import Counter
 
-f = ['data/spam-test', 'data/spam-train']
+f = ['data/spam-test', 'data/spam-train'] #,'data/nonspam-test', 'data/nonspam-train']
 
 for path in f:
     files = [os.path.join(path, f) for f in os.listdir(path)]
