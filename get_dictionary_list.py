@@ -12,7 +12,6 @@ def dictionaryList():
                 res="".join([res, c])
         dictionaryList[i]=res
 
-    print(dictionaryList)
     f.close() 
     return dictionaryList
 
