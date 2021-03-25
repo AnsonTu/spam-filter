@@ -1,8 +1,7 @@
 def dictionaryList():
-
     f=open("dictionary.txt")
 
-    
+        
     dictionaryList={'key':'value'}
 
     for i in range (2500):
@@ -12,4 +11,8 @@ def dictionaryList():
             if c.isalpha():
                 res="".join([res, c])
         dictionaryList[i]=res
-    f.close()
+
+    print(dictionaryList)
+    f.close() 
+    return dictionaryList
+
