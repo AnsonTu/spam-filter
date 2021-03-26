@@ -1,48 +1,46 @@
 import numpy as np
-from scipy.sparse import csr_matrix
 
-NUM_OF_TRAINING_DOCS = 100
+NUM_OF_TRAINING_DOCS = 700
 NUM_OF_TOKENS = 2500
 
-training_data_contents = open("training-data.txt", "r")
-formatted_test_data = []
+train_data_file = open("train-features.txt", "r")
+train_data = []
 while 1:
-    line = training_data_contents.readline()
+    line = train_data_file.readline().split()
     if not line:
         break
-    line = line.split()
-    formatted_test_data.append(line)
-test_data_matrix = csr_matrix((formatted_test_data[:, 2], (formatted_test_data[:, 0], formatted_test_data[:, 1])), shape=(NUM_OF_TRAINING_DOCS, NUM_OF_TOKENS))
+    for j in range(3):
+        line[j] = int(line[j])
+    train_data.append(line)
+train_data = np.array(train_data)
 
-training_labels_contents = open("training-labels.txt", "r")
-formatted_label_data = []
+formatted_train_data = np.zeros((NUM_OF_TRAINING_DOCS, NUM_OF_TOKENS))
+for i in range(len(train_data)):
+    row = train_data[i][0] - 1
+    column = train_data[i][1] - 1
+    data = train_data[i][2]
+    formatted_train_data[row][column] = data
+
+train_labels_file = open("train-labels.txt", "r")
+train_labels = []
 while 1:
-    line = training_labels_contents.readline()
+    line = train_labels_file.readline().split()
     if not line:
         break
-    formatted_label_data.append(line)
-spam_indexes = np.argwhere(training_labels_contents != 0)
-non_spam_indexes = np.argwhere(training_labels_contents == 0)
+    train_labels.append(int(line[0]))
+train_labels = np.array(train_labels)
 
-length_of_emails = []
-for i in test_data_matrix:
-    length_of_emails.append(sum(test_data_matrix[i]))
+spam_indexes = np.argwhere(train_labels != 0)
+nonspam_indexes = np.argwhere(train_labels == 0)
 
-spam_word_count = None
-for i in spam_indexes
-    spam_word_count += length_of_emails[i]
-non_spam_word_count = None
-for i in non_spam_indexes
-    spam_word_count += length_of_emails[i]
+length_of_emails = np.sum(formatted_train_data, axis=1)
 
-token_spam = []
+spam_word_count = sum(length_of_emails[spam_indexes])
+nonspam_word_count = sum(length_of_emails[nonspam_indexes])
+    
+spam_probability = (np.sum(formatted_train_data[spam_indexes]) + 1) / (spam_word_count + NUM_OF_TOKENS)
+nonspam_probability = (np.sum(formatted_train_data[nonspam_indexes]) + 1) / (nonspam_word_count + NUM_OF_TOKENS)
 
-spam_probability = []
-token_spam / (spam_word_count + NUM_OF_TOKENS)
-token_non_spam = []
+train_data_file.close()
+train_labels_file.close()
 
-non_spam_probability = []
-token_non_spam / (non_spam_word_count + NUM_OF_TOKENS)
-
-training_data_contents.close()
-training_labels_contents.close()
