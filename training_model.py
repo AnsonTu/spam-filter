@@ -3,16 +3,16 @@ import numpy as np
 NUM_OF_TRAINING_DOCS = 700
 NUM_OF_TOKENS = 2500
 
-train_data_file = open("train-features.txt", "r")
 train_data = []
+train_data_file = open("train-features.txt", "r")
 while 1:
     line = train_data_file.readline().split()
     if not line:
         break
-    for j in range(3):
-        line[j] = int(line[j])
+    #for j in range(3):
+        #line[j] = int(line[j])
     train_data.append(line)
-train_data = np.array(train_data)
+train_data = np.array(train_data, dtype=int)
 
 formatted_train_data = np.zeros((NUM_OF_TRAINING_DOCS, NUM_OF_TOKENS))
 for i in range(len(train_data)):
