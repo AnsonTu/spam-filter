@@ -2,7 +2,7 @@ def dictionaryList():
     f=open("dictionary.txt")
 
         
-    dictionaryList={'key':'value'}
+    dictionaryList = dict()
 
     for i in range (2500):
         x=f.readline()
