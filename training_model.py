@@ -36,14 +36,8 @@ length_of_emails = np.sum(formatted_train_data, axis=1)
 spam_word_count = sum(length_of_emails[spam_indexes])
 nonspam_word_count = sum(length_of_emails[nonspam_indexes])
 
-spam_probability = []
-for i in spam_indexes:
-    x = (np.sum(formatted_train_data[i]) + 1) / (spam_word_count + NUM_OF_TOKENS)
-    spam_probability.append(x[0])
-nonspam_probability = []
-for i in nonspam_indexes:
-    x = (np.sum(formatted_train_data[i]) + 1) / (nonspam_word_count + NUM_OF_TOKENS)
-    nonspam_probability.append(x[0])
+spam_probability = (np.sum(formatted_train_data[spam_indexes]) + 1) / (spam_word_count + NUM_OF_TOKENS)
+nonspam_probability = (np.sum(formatted_train_data[nonspam_indexes]) + 1) / (nonspam_word_count + NUM_OF_TOKENS)
 
 train_data_file.close()
 train_labels_file.close()
