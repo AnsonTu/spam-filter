@@ -1,6 +1,6 @@
 import numpy as np
 import math
-from training_model import spam_indexes, spam_probability, nonspam_probability
+from training_model import spam_probability, nonspam_probability
 
 # constants
 NUM_TEST_EMAILS = 260 
@@ -25,8 +25,8 @@ with open('test-labels.txt') as label_file:
         labels += line.split()
 
 # make a np matrix
-labels = np.array(labels, dtype=int).reshape(NUM_TEST_EMAILS,1)
-output = np.zeros([NUM_TEST_EMAILS,1])
+labels = np.array(labels, dtype=int)
+output = np.zeros(NUM_TEST_EMAILS)
 
 # probability that one email is spam = # of spam emails/# of all emails
 prob_spam = NUM_TEST_SPAM/NUM_TEST_EMAILS
@@ -37,8 +37,8 @@ log_spam = np.dot(features, np.log(np.transpose(spam_probability))) + math.log(p
 log_ham = np.dot(features, np.log(np.transpose(nonspam_probability))) + math.log(1-prob_spam)
 
 output = log_spam > log_ham
-print(output)
+
 # get the number of incorrectly predicted
-wrong_labelled = np.sum(np.bitwise_xor(output, labels))
-err = wrong_labelled/NUM_TEST_EMAILS
-print(err)
+correct_labelled = np.sum(output==labels)
+correct = correct_labelled/NUM_TEST_EMAILS
+print("Pct of Correctly predicted emails: "+str(correct*100))
