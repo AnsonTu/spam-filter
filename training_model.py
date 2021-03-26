@@ -40,8 +40,6 @@ nonspam_word_count = sum(length_of_emails[nonspam_indexes])
     
 spam_probability = (np.sum(formatted_train_data[spam_indexes]) + 1) / (spam_word_count + NUM_OF_TOKENS)
 nonspam_probability = (np.sum(formatted_train_data[nonspam_indexes]) + 1) / (nonspam_word_count + NUM_OF_TOKENS)
-print(spam_probability)
-print(nonspam_probability)
 
 train_data_file.close()
 train_labels_file.close()
